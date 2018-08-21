@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: translation-autoscaler
@@ -10,4 +10,8 @@ spec:
     name: translation
   minReplicas: 1
   maxReplicas: 5
-  targetCPUUtilizationPercentage: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 2
